@@ -1,20 +1,20 @@
 # Classificação de Espécies de Flores com Machine Learning
 
-Este projeto é o trabalho final do curso de **ICMC da USP** e consiste em um estudo prático de aprendizado de máquina utilizando o famoso dataset **Iris**. O objetivo é classificar espécies de flores com base em características morfológicas.
+Este projeto é o trabalho final do curso de **ICMC da USP** e consiste em um estudo prático de aprendizado de máquina usando o dataset **Iris**. O objetivo é classificar espécies de flores com base em características morfológicas.
 
 
 ## Objetivo
 
-Desenvolver e avaliar modelos de aprendizado de máquina para identificar a espécie de flor a partir das medidas de sépala e pétala, incluindo:
+Desenvolver e avaliar modelos de aprendizado de máquina para identificar a espécie de flor a partir das medidas de sépala e pétala, fazendo:
 
 1. Pré-processamento dos dados.
 2. Treinamento e teste de modelos de classificação.
-3. Comparação de desempenho entre algoritmos.
+3. Comparação de desempenho entre dois ou mais algoritmos.
 
 ## Dataset
 ![Classificação de Espécies de Flores](https://miro.medium.com/v2/resize:fit:4800/format:webp/1*nfK3vGZkTa4GrO7yWpcS-Q.png)
 
-O **dataset Iris** contém 150 amostras de três espécies de flores:
+O **dataset Iris** tem 150 amostras de três espécies de flores:
 
 - **Iris Setosa**
 - **Iris Versicolor**
@@ -46,10 +46,3 @@ Ambos os modelos são avaliados com validação cruzada e matriz de confusão.
 ## Resultados e Análise
 
 Os modelos foram avaliados quanto à acurácia, destacando diferenças nas abordagens e eficácia para o dataset Iris.
-
-## Como Executar
-
-1. Clone o repositório.
-2. Instale as dependências:
-   ```bash
-   pip install -r requirements.txt
