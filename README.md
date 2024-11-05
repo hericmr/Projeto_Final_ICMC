@@ -2,6 +2,7 @@
 
 Este projeto é o trabalho final do curso de **ICMC da USP** e consiste em um estudo prático de aprendizado de máquina utilizando o famoso dataset **Iris**. O objetivo é classificar espécies de flores com base em características morfológicas.
 
+
 ## Objetivo
 
 Desenvolver e avaliar modelos de aprendizado de máquina para identificar a espécie de flor a partir das medidas de sépala e pétala, incluindo:
@@ -11,6 +12,7 @@ Desenvolver e avaliar modelos de aprendizado de máquina para identificar a esp�
 3. Comparação de desempenho entre algoritmos.
 
 ## Dataset
+![Classificação de Espécies de Flores](https://miro.medium.com/v2/resize:fit:4800/format:webp/1*nfK3vGZkTa4GrO7yWpcS-Q.png)
 
 O **dataset Iris** contém 150 amostras de três espécies de flores:
 
