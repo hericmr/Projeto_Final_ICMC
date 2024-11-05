@@ -1,79 +1,59 @@
 import pandas as pd
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.svm import SVC
 from sklearn.linear_model import LinearRegression
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 class Modelo():
     def __init__(self):
         pass
 
     def CarregarDataset(self, path):
-        """
-        Carrega o conjunto de dados a partir de um arquivo CSV.
-
-        Parâmetros:
-        - path (str): Caminho para o arquivo CSV contendo o dataset.
-        
-        O dataset é carregado com as seguintes colunas: SepalLengthCm, SepalWidthCm, PetalLengthCm, PetalWidthCm e Species.
-        """
         names = ['SepalLengthCm', 'SepalWidthCm', 'PetalLengthCm', 'PetalWidthCm', 'Species']
         self.df = pd.read_csv(path, names=names)
 
     def TratamentoDeDados(self):
-        """
-        Realiza o pré-processamento dos dados carregados.
-
-        Sugestões para o tratamento dos dados:
-            * Utilize `self.df.head()` para visualizar as primeiras linhas e entender a estrutura.
-            * Verifique a presença de valores ausentes e faça o tratamento adequado.
-            * Considere remover colunas ou linhas que não são úteis para o treinamento do modelo.
+        # Remover valores ausentes
+        self.df.dropna(inplace=True)
         
-        Dicas adicionais:
-            * Explore gráficos e visualizações para obter insights sobre a distribuição dos dados.
-            * Certifique-se de que os dados estão limpos e prontos para serem usados no treinamento do modelo.
-        """
-        pass
+        # Separar features e target
+        self.X = self.df[['SepalLengthCm', 'SepalWidthCm', 'PetalLengthCm', 'PetalWidthCm']]
+        self.y = self.df['Species']
 
-    def Treinamento(self):
-        """
-        Treina o modelo de machine learning.
-
-        Detalhes:
-            * Utilize a função `train_test_split` para dividir os dados em treinamento e teste.
-            * Escolha o modelo de machine learning que queira usar. Lembrando que não precisa ser SMV e Regressão linear.
-            * Experimente técnicas de validação cruzada (cross-validation) para melhorar a acurácia final.
+    def Treinamento(self, model):
+        # Dividir dados em treino e teste
+        X_train, X_test, y_train, y_test = train_test_split(self.X, self.y, test_size=0.2, random_state=42)
         
-        Nota: Esta função deve ser ajustada conforme o modelo escolhido.
-        """
-        pass
+        # Treinamento
+        model.fit(X_train, y_train)
+        
+        # Avaliação com validação cruzada
+        scores = cross_val_score(model, X_train, y_train, cv=5)
+        print(f"Validação cruzada (acurácia média): {scores.mean():.2f}")
 
-    def Teste(self):
-        """
-        Avalia o desempenho do modelo treinado nos dados de teste.
-
-        Esta função deve ser implementada para testar o modelo e calcular métricas de avaliação relevantes, 
-        como acurácia, precisão, ou outras métricas apropriadas ao tipo de problema.
-        """
-        pass
+        # Teste final
+        y_pred = model.predict(X_test)
+        acuracia = accuracy_score(y_test, y_pred)
+        print(f"Acurácia no conjunto de teste: {acuracia:.2f}")
+        print(classification_report(y_test, y_pred))
+        
+        # Plotar matriz de confusão
+        cm = confusion_matrix(y_test, y_pred)
+        sns.heatmap(cm, annot=True, fmt="d", cmap="Blues")
+        plt.xlabel('Predicted')
+        plt.ylabel('True')
+        plt.show()
 
     def Train(self):
-        """
-        Função principal para o fluxo de treinamento do modelo.
-
-        Este método encapsula as etapas de carregamento de dados, pré-processamento e treinamento do modelo.
-        Sua tarefa é garantir que os métodos `CarregarDataset`, `TratamentoDeDados` e `Treinamento` estejam implementados corretamente.
-        
-        Notas:
-            * O dataset padrão é "iris.data", mas o caminho pode ser ajustado.
-            * Caso esteja executando fora do Colab e enfrente problemas com o path, use a biblioteca `os` para gerenciar caminhos de arquivos.
-        """
-        self.CarregarDataset("iris.data")  # Carrega o dataset especificado.
-
-        # Tratamento de dados opcional, pode ser comentado se não for necessário
+        self.CarregarDataset("iris.data")
         self.TratamentoDeDados()
+        
+        print("==> Treinando com SVM:")
+        self.Treinamento(SVC())
 
-        self.Treinamento()  # Executa o treinamento do modelo
-
-# Lembre-se de instanciar as classes após definir suas funcionalidades
-# Recomenda-se criar ao menos dois modelos (e.g., Regressão Linear e SVM) para comparar o desempenho.
-# A biblioteca já importa LinearRegression e SVC, mas outras escolhas de modelo são permitidas.
+        print("\n==> Treinando com Decision Tree:")
+        self.Treinamento(DecisionTreeClassifier())
