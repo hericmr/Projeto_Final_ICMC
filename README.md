@@ -1,4 +1,4 @@
-# Classificação de Espécies de Flores com Machine Learning
+# Classificação de espécies de flores com machine learning
 
 Este projeto é o trabalho final do curso de **ICMC da USP** e consiste em um estudo prático de aprendizado de máquina usando o dataset **Iris**. O objetivo é classificar espécies de flores com base em características morfológicas.
 
